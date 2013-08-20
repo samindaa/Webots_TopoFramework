@@ -10,10 +10,10 @@
 
 #include "kernel/Template.h"
 #include "EPuckFramework.h"
-#include "representations/WheelSpeed.h"
+#include "representations/MotionRequest.h"
 
 MODULE(EPuckBodySend)
-  REQUIRES(WheelSpeed)
+  REQUIRES(MotionRequest)
 END_MODULE
 
 class EPuckBodySend: public EPuckBodySendBase

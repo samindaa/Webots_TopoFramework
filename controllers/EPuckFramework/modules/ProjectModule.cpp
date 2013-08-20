@@ -7,7 +7,7 @@
 
 #include "ProjectModule.h"
 
-void ProjectModule::update(WheelSpeed& theWheelSpeed)
+void ProjectModule::update(MotionRequest& theMotionRequest)
 {
   const static double constantThetaDot(500.0f);
   Vector2<> thetaDot(constantThetaDot, constantThetaDot); // (left, right)
@@ -32,8 +32,8 @@ void ProjectModule::update(WheelSpeed& theWheelSpeed)
     thetaDot += Vector2<>(constantThetaDot, -constantThetaDot);
   }
 
-  theWheelSpeed.dot.x = thetaDot.x;
-  theWheelSpeed.dot.y = thetaDot.y;
+  theMotionRequest.wheelSpeedRequest.left = thetaDot.x;
+  theMotionRequest.wheelSpeedRequest.right = thetaDot.y;
 }
 
 MAKE_MODULE(ProjectModule)

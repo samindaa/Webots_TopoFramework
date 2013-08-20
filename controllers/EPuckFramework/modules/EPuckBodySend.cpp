@@ -10,7 +10,8 @@
 void EPuckBodySend::execute()
 {
   // Set new speed
-  EPuckFramework::getController().setSpeed(theWheelSpeed->dot.x, theWheelSpeed->dot.y);
+  EPuckFramework::getController().setSpeed(theMotionRequest->wheelSpeedRequest.left,
+      theMotionRequest->wheelSpeedRequest.right);
 }
 
 MAKE_MODULE(EPuckBodySend)

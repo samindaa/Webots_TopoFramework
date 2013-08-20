@@ -10,17 +10,17 @@
 
 #include "kernel/Template.h"
 #include "representations/DistanceSensor.h"
-#include "representations/WheelSpeed.h"
+#include "representations/MotionRequest.h"
 
 MODULE(ProjectModule)
 REQUIRES(DistanceSensor)
-PROVIDES(WheelSpeed)
+PROVIDES(MotionRequest)
 END_MODULE
 
 class ProjectModule: public ProjectModuleBase
 {
   public:
-    void update(WheelSpeed& theWheelSpeed);
+    void update(MotionRequest& theMotionRequest);
 };
 
 #endif /* PROJECTMODULE_H_ */
