@@ -11,17 +11,17 @@
 #include "kernel/Template.h"
 #include "representations/Specifications.h"
 #include "representations/UnicycleRequest.h"
-#include "representations/MotionRequest.h"
+#include "representations/WheelSpeedRequest.h"
 
 MODULE(DifferentialDrive)
   REQUIRES(Specifications)
-  REQUIRES(UnicycleRequest)
-  PROVIDES(MotionRequest)
+  REQUIRES(UnicycleRequestOutput)
+  PROVIDES(WheelSpeedRequest)
 END_MODULE
 class DifferentialDrive: public DifferentialDriveBase
 {
   public:
-    void update(MotionRequest& theMotionRequest);
+    void update(WheelSpeedRequest& theWheelSpeedRequest);
 };
 
 #endif /* DIFFERENTIALDRIVE_H_ */

@@ -9,11 +9,17 @@
 #define SPECIFICATIONS_H_
 
 #include "kernel/Template.h"
+#include "math/Pose3D.h"
 
 REPRESENTATION(Specifications)
 class Specifications: public SpecificationsBase
 {
   public:
+    enum
+    {
+      SENSOR_SIZE = 8
+    };
+
     double encoderResolution;
     double wheelRadius;
     double wheelBaseLength;
@@ -21,6 +27,8 @@ class Specifications: public SpecificationsBase
     double maxSpeed;
     double speedUnit;
     bool initialized;
+
+    Pose3D distanceSensorPoses[SENSOR_SIZE];
 
     Specifications() :
         encoderResolution(0), wheelRadius(0), wheelBaseLength(0), timeStep(0), maxSpeed(0), speedUnit(

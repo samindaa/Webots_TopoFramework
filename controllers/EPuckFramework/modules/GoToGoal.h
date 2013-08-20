@@ -16,7 +16,7 @@
 MODULE(GoToGoal)
   REQUIRES(Specifications)
   REQUIRES(Odometry)
-  PROVIDES(UnicycleRequest)
+  PROVIDES(GoToGoalUnicycleRequest)
 END_MODULE
 class GoToGoal: public GoToGoalBase
 {
@@ -25,7 +25,7 @@ class GoToGoal: public GoToGoalBase
     double E_k, e_k_1;
   public:
     void init();
-    void update(UnicycleRequest& theUnicycleRequest);
+    void update(GoToGoalUnicycleRequest& theUnicycleRequest);
 };
 
 

@@ -59,9 +59,10 @@ CXX_SOURCES += kernel/net/Addr.cpp kernel/net/Exception.cpp kernel/net/Handler.c
 CXX_SOURCES += kernel/net/TCPSocket.cpp kernel/net/UDPSocket.cpp 
 
 ### -- Module list
-CXX_SOURCES += modules/AccEvaluator.cpp modules/AvoidObstacles.cpp modules/DifferentialDrive.cpp
+CXX_SOURCES += modules/AccEvaluator.cpp  modules/DifferentialDrive.cpp
 CXX_SOURCES += modules/EPuckBodyProvider.cpp modules/EPuckBodySend.cpp
-CXX_SOURCES += modules/GoToGoal.cpp 
+CXX_SOURCES += modules/GoToAngle.cpp modules/GoToGoal.cpp modules/AvoidObstacles.cpp 
+CXX_SOURCES += modules/SwitchingCombinator.cpp
 
 
 ### Do not modify: this includes Webots global Makefile.include

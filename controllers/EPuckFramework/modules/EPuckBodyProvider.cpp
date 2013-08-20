@@ -15,7 +15,7 @@ EPuckBodyProvider::EPuckBodyProvider() :
 void EPuckBodyProvider::init()
 {
   // Enter here exit cleanup code
-  for (int i = 0; i < SensorData::SENSOR_SIZE; i++)
+  for (int i = 0; i < Specifications::SENSOR_SIZE; i++)
   {
     std::stringstream ss;
     ss << "ps" << i;
@@ -23,7 +23,7 @@ void EPuckBodyProvider::init()
     distanceSensors[i]->enable(conn.getBasicTimeStep());
   }
 
-  for (int i = 0; i < SensorData::SENSOR_SIZE; i++)
+  for (int i = 0; i < Specifications::SENSOR_SIZE; i++)
   {
     std::stringstream ss;
     ss << "ls" << i;
@@ -38,10 +38,10 @@ void EPuckBodyProvider::init()
 
 void EPuckBodyProvider::update(SensorData& theSensorData)
 {
-  for (int i = 0; i < SensorData::SENSOR_SIZE; i++)
+  for (int i = 0; i < Specifications::SENSOR_SIZE; i++)
   {
     // [0.02->0.7)
-    theSensorData.distanceValues[i] = distanceSensors[i]->getValue() / 4096.0f; // From doc
+    theSensorData.distanceValues[i] = distanceSensors[i]->getValue(); // From doc
     theSensorData.lightValues[i] = lightSensors[i]->getValue();
   }
 
@@ -71,6 +71,16 @@ void EPuckBodyProvider::update(Specifications& theSpecifications)
     theSpecifications.maxSpeed = 1000.0f;
     theSpecifications.speedUnit = 0.00628; // rad/s
     theSpecifications.timeStep = conn.getBasicTimeStep() / 1000.0f; // s
+
+    // poses
+    theSpecifications.distanceSensorPoses[0].rotateZ(-M_PI_2).translate(0.010,  0.033,  -0.030).rotateZ(1.27);
+    theSpecifications.distanceSensorPoses[1].rotateZ(-M_PI_2).translate(0.025,  0.033,  -0.022).rotateZ(0.77);
+    theSpecifications.distanceSensorPoses[2].rotateZ(-M_PI_2).translate(0.031,  0.033,  0.00).rotateZ(0.00);
+    theSpecifications.distanceSensorPoses[3].rotateZ(-M_PI_2).translate(0.015,  0.033,  0.030).rotateZ(5.21);
+    theSpecifications.distanceSensorPoses[4].rotateZ(-M_PI_2).translate(-0.015, 0.033,  0.030).rotateZ(4.21);
+    theSpecifications.distanceSensorPoses[5].rotateZ(-M_PI_2).translate(-0.031, 0.033,  0.00).rotateZ(3.14159);
+    theSpecifications.distanceSensorPoses[6].rotateZ(-M_PI_2).translate(-0.025, 0.033,  -0.022).rotateZ(2.37);
+    theSpecifications.distanceSensorPoses[7].rotateZ(-M_PI_2).translate(0.010,  0.033,  -0.030).rotateZ(1.87);
   }
 }
 

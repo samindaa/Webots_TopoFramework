@@ -17,7 +17,7 @@ void GoToAngle::init()
   e_k_1 = 0.0f;
 }
 
-void GoToAngle::update(UnicycleRequest& theUnicycleRequest)
+void GoToAngle::update(GoToAngleUnicycleRequest& theUnicycleRequest)
 {
   // fixME
   static const double v = 0.0f; //

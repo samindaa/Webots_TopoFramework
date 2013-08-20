@@ -16,7 +16,7 @@
 MODULE(GoToAngle)
   REQUIRES(Specifications)
   REQUIRES(Odometry)
-  //PROVIDES(UnicycleRequest)
+  PROVIDES(GoToAngleUnicycleRequest)
 END_MODULE
 class GoToAngle: public GoToAngleBase
 {
@@ -25,7 +25,7 @@ class GoToAngle: public GoToAngleBase
     double E_k, e_k_1;
   public:
     void init();
-    void update(UnicycleRequest& theUnicycleRequest);
+    void update(GoToAngleUnicycleRequest& theUnicycleRequest);
 };
 
 #endif /* GOTOANGLE_H_ */

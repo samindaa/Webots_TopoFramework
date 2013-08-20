@@ -23,8 +23,8 @@ END_MODULE
 class EPuckBodyProvider: public EPuckBodyProviderBase
 {
   private:
-    webots::DistanceSensor* distanceSensors[SensorData::SENSOR_SIZE];
-    webots::LightSensor* lightSensors[SensorData::SENSOR_SIZE];
+    webots::DistanceSensor* distanceSensors[Specifications::SENSOR_SIZE];
+    webots::LightSensor* lightSensors[Specifications::SENSOR_SIZE];
     webots::Accelerometer* acc;
     EPuckController& conn;
   public:

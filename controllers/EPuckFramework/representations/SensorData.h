@@ -10,6 +10,7 @@
 
 #include <algorithm>
 #include "kernel/Template.h"
+#include "representations/Specifications.h"
 #include "math/Vector3.h"
 
 REPRESENTATION(SensorData)
@@ -17,13 +18,8 @@ class SensorData: public SensorDataBase
 {
   public:
 
-    enum
-    {
-      SENSOR_SIZE = 8
-    };
-
-    double lightValues[SENSOR_SIZE];
-    double distanceValues[SENSOR_SIZE];
+    double lightValues[Specifications::SENSOR_SIZE];
+    double distanceValues[Specifications::SENSOR_SIZE];
     Vector3<> acc;
     double leftEncoder;
     double rightEncoder;
@@ -33,8 +29,8 @@ class SensorData: public SensorDataBase
     SensorData() :
         leftEncoder(0), rightEncoder(0), leftSpeed(0), rightSpeed(0)
     {
-      std::fill(lightValues, lightValues + SENSOR_SIZE, 0.0f);
-      std::fill(lightValues, lightValues + SENSOR_SIZE, 0.0f);
+      std::fill(lightValues, lightValues + Specifications::SENSOR_SIZE, 0.0f);
+      std::fill(lightValues, lightValues + Specifications::SENSOR_SIZE, 0.0f);
     }
 
 };
