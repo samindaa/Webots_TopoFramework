@@ -24,7 +24,7 @@ void EPuckController::run()
   graph.topoSort();
   std::cout << graph << std::endl;
 
-  graph.graphOutputAllocateAndUpdate();
+  graph.graphOutputAllocate();
   // Main loop:
   while (step(getBasicTimeStep()) != -1)
   {
