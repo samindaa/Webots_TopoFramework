@@ -9,7 +9,6 @@
 #define ACCEVALUATOR_H_
 
 #include "kernel/Template.h"
-#include "EPuckFramework.h"
 #include "representations/Specifications.h"
 #include "representations/SensorData.h"
 #include "representations/Odometry.h"
@@ -24,8 +23,7 @@ END_MODULE
 class AccEvaluator : public AccEvaluatorBase
 {
   private:
-    Vector2<> prevEncPos;
-    Pose2D pos;
+    Pose2D pose;
 
   public:
     void update(Odometry& theOdometry);

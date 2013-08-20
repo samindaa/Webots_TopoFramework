@@ -10,18 +10,23 @@
 void DifferentialDrive::update(MotionRequest& theMotionRequest)
 {
   // Linear and angular velocities to velocities left and right
-  theMotionRequest.wheelSpeedRequest.left = theBehaviorOutput->unicycleRequest.v
-      / theSpecifications->wheelRadius
-      - (theBehaviorOutput->unicycleRequest.w * theSpecifications->wheelBaseLength)
-          / (2.0f * theSpecifications->wheelRadius);
-  theMotionRequest.wheelSpeedRequest.right = theBehaviorOutput->unicycleRequest.v
-      / theSpecifications->wheelRadius
-      + (theBehaviorOutput->unicycleRequest.w * theSpecifications->wheelBaseLength)
-          / (2 * theSpecifications->wheelRadius);
-  // fixMe: probably have to limit this
+  const static double R = theSpecifications->wheelRadius;
+  const static double L = theSpecifications->wheelBaseLength;
+  const double v = theUnicycleRequest->v;
+  const double w = theUnicycleRequest->w;
 
-  std::cout << theMotionRequest.wheelSpeedRequest.left << " "
-      << theMotionRequest.wheelSpeedRequest.right << std::endl;
+  theMotionRequest.wheelSpeedRequest.right = v / R + (w * L) / (2.0f * R);
+  theMotionRequest.wheelSpeedRequest.left = v / R - (w * L) / (2.0f * R);
+
+  theMotionRequest.wheelSpeedRequest.right = std::min(
+      std::max(theMotionRequest.wheelSpeedRequest.right, -theSpecifications->maxSpeed),
+      theSpecifications->maxSpeed);
+  theMotionRequest.wheelSpeedRequest.left = std::min(
+      std::max(theMotionRequest.wheelSpeedRequest.left, -theSpecifications->maxSpeed),
+      theSpecifications->maxSpeed);
+
+  //std::cout << theMotionRequest.wheelSpeedRequest.left << " "
+  //    << theMotionRequest.wheelSpeedRequest.right << std::endl;
 }
 
 MAKE_MODULE(DifferentialDrive)

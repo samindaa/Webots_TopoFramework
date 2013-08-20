@@ -10,12 +10,12 @@
 
 #include "kernel/Template.h"
 #include "representations/Specifications.h"
-#include "representations/BehaviorOutput.h"
+#include "representations/UnicycleRequest.h"
 #include "representations/MotionRequest.h"
 
 MODULE(DifferentialDrive)
   REQUIRES(Specifications)
-  REQUIRES(BehaviorOutput)
+  REQUIRES(UnicycleRequest)
   PROVIDES(MotionRequest)
 END_MODULE
 class DifferentialDrive: public DifferentialDriveBase

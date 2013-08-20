@@ -26,7 +26,9 @@ class EPuckBodyProvider: public EPuckBodyProviderBase
     webots::DistanceSensor* distanceSensors[SensorData::SENSOR_SIZE];
     webots::LightSensor* lightSensors[SensorData::SENSOR_SIZE];
     webots::Accelerometer* acc;
+    EPuckController& conn;
   public:
+    EPuckBodyProvider();
     void init();
     void update(SensorData& theSensorData);
     void update(Specifications& theSpecifications);

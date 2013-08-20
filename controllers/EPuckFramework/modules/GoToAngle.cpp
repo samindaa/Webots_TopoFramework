@@ -10,18 +10,18 @@
 
 void GoToAngle::init()
 {
-  kp = 30.0f;
+  kp = 50.0f;
   ki = 0.0f;
   kd = 0.0f;
   E_k = 0.0f;
   e_k_1 = 0.0f;
 }
 
-void GoToAngle::update(BehaviorOutput& theBehaviorOutput)
+void GoToAngle::update(UnicycleRequest& theUnicycleRequest)
 {
   // fixME
-  static const double v = 2.0f; //
-  static const double theta_d = M_PI;
+  static const double v = 0.0f; //
+  static const double theta_d = M_PI_2;
 
   // Heading error
   double e_k = theta_d - theOdometry->pose.rotation;
@@ -32,14 +32,14 @@ void GoToAngle::update(BehaviorOutput& theBehaviorOutput)
   double e_d = (e_k - e_k_1) / theSpecifications->timeStep;
 
   // PID heading
-  theBehaviorOutput.unicycleRequest.w = kp * e_k + ki * e_i + kd * e_d;
-  theBehaviorOutput.unicycleRequest.v = v;
+  theUnicycleRequest.w = kp * e_p + ki * e_i + kd * e_d;
+  theUnicycleRequest.v = v;
 
   E_k = e_i;
   e_k_1 = e_k;
 
-  std::cout << e_k << " " << e_d << " " << theBehaviorOutput.unicycleRequest.v << " "
-      << theBehaviorOutput.unicycleRequest.w << std::endl;
+  std::cout << e_k << " " << e_d << " " << theUnicycleRequest.v << " " << theUnicycleRequest.w
+      << " " << theSpecifications->timeStep << std::endl;
 
 }
 

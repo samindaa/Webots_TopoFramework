@@ -10,6 +10,7 @@
 
 #include "kernel/Template.h"
 #include "math/Pose2D.h"
+#include "math/Pose3D.h"
 
 REPRESENTATION(Odometry)
 

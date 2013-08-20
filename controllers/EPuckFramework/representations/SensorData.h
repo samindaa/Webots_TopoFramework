@@ -25,8 +25,13 @@ class SensorData: public SensorDataBase
     double lightValues[SENSOR_SIZE];
     double distanceValues[SENSOR_SIZE];
     Vector3<> acc;
+    double leftEncoder;
+    double rightEncoder;
+    double leftSpeed;
+    double rightSpeed;
 
-    SensorData()
+    SensorData() :
+        leftEncoder(0), rightEncoder(0), leftSpeed(0), rightSpeed(0)
     {
       std::fill(lightValues, lightValues + SENSOR_SIZE, 0.0f);
       std::fill(lightValues, lightValues + SENSOR_SIZE, 0.0f);

@@ -18,10 +18,13 @@ class Specifications: public SpecificationsBase
     double wheelRadius;
     double wheelBaseLength;
     double timeStep;
+    double maxSpeed;
+    double speedUnit;
     bool initialized;
 
     Specifications() :
-        encoderResolution(0), wheelRadius(0), wheelBaseLength(0), timeStep(0), initialized(false)
+        encoderResolution(0), wheelRadius(0), wheelBaseLength(0), timeStep(0), maxSpeed(0), speedUnit(
+            0), initialized(false)
     {
     }
 };
