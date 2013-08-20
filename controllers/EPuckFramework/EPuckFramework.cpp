@@ -20,7 +20,6 @@ EPuckController::~EPuckController()
 
 void EPuckController::run()
 {
-  bool firstRun = false;
   graph.computeGraph();
   graph.topoSort();
   std::cout << graph << std::endl;
