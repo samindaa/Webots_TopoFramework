@@ -42,7 +42,7 @@ EPuckFramework::~EPuckFramework()
 {
 }
 
-EPuckController& EPuckFramework::getConroller()
+EPuckController& EPuckFramework::getController()
 {
   // Simple and clean controller
   static EPuckController instance;
@@ -51,6 +51,6 @@ EPuckController& EPuckFramework::getConroller()
 
 int main(int argc, char **argv)
 {
-  EPuckFramework::getConroller().run();
+  EPuckFramework::getController().run();
   return 0;
 }

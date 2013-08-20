@@ -15,8 +15,8 @@ void EPuckBodyProvider::init()
     std::stringstream ss;
     ss << "ps" << i;
     distanceSensorNames[i] = ss.str().c_str();
-    distanceSensors[i] = EPuckFramework::getConroller().getDistanceSensor(distanceSensorNames[i]);
-    distanceSensors[i]->enable(EPuckFramework::getConroller().getBasicTimeStep());
+    distanceSensors[i] = EPuckFramework::getController().getDistanceSensor(distanceSensorNames[i]);
+    distanceSensors[i]->enable(EPuckFramework::getController().getBasicTimeStep());
   }
 }
 

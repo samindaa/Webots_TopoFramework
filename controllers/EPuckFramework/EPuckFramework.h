@@ -33,7 +33,7 @@ class EPuckFramework
     EPuckFramework& operator=(EPuckFramework const& that);
 
   public:
-    static EPuckController& getConroller();
+    static EPuckController& getController();
 
 };
 
