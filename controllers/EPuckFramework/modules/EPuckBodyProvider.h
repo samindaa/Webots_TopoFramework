@@ -11,20 +11,23 @@
 #include "kernel/Template.h"
 #include "EPuckFramework.h"
 #include "representations/DistanceSensor.h"
+#include "representations/LightSensor.h"
 #include <webots/DifferentialWheels.hpp>
 
 MODULE(EPuckBodyProvider)
   PROVIDES(DistanceSensor)
+  PROVIDES(LightSensor)
 END_MODULE
 
 class EPuckBodyProvider: public EPuckBodyProviderBase
 {
   private:
-    webots::DistanceSensor* distanceSensors[DistanceSensor::DISTANCE_SENSOR_SIZE];
-    const char* distanceSensorNames[DistanceSensor::DISTANCE_SENSOR_SIZE];
+    webots::DistanceSensor* distanceSensors[DistanceSensor::SENSOR_SIZE];
+    webots::LightSensor* lightSensors[LightSensor::SENSOR_SIZE];
   public:
     void init();
     void update(DistanceSensor& theDistanceSensor);
+    void update(LightSensor& theLightSensor);
 
 };
 

@@ -14,12 +14,10 @@ void ProjectModule::update(MotionRequest& theMotionRequest)
 
   // Simple avoid obstacle behavior
   // detect obsctacles
-  bool leftObstacle = theDistanceSensor->distanceSensorValues[0] > 100.0
-      || theDistanceSensor->distanceSensorValues[1] > 100.0
-      || theDistanceSensor->distanceSensorValues[2] > 100.0;
-  bool rightObstacle = theDistanceSensor->distanceSensorValues[5] > 100.0
-      || theDistanceSensor->distanceSensorValues[6] > 100.0
-      || theDistanceSensor->distanceSensorValues[7] > 100.0;
+  bool leftObstacle = theDistanceSensor->values[0] > 100.0 || theDistanceSensor->values[1] > 100.0
+      || theDistanceSensor->values[2] > 100.0;
+  bool rightObstacle = theDistanceSensor->values[5] > 100.0 || theDistanceSensor->values[6] > 100.0
+      || theDistanceSensor->values[7] > 100.0;
 
   if (leftObstacle)
   {

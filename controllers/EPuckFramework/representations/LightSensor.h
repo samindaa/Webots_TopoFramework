@@ -1,18 +1,18 @@
 /*
- * DistanceSensor.h
+ * LightSensor.h
  *
  *  Created on: Aug 19, 2013
  *      Author: sam
  */
 
-#ifndef DISTANCESENSOR_H_
-#define DISTANCESENSOR_H_
+#ifndef LIGHTSENSOR_H_
+#define LIGHTSENSOR_H_
 
 #include "kernel/Template.h"
 #include <algorithm>
 
-REPRESENTATION(DistanceSensor)
-class DistanceSensor: public DistanceSensorBase
+REPRESENTATION(LightSensor)
+class LightSensor: public LightSensorBase
 {
   public:
     enum
@@ -22,11 +22,11 @@ class DistanceSensor: public DistanceSensorBase
 
     double values[SENSOR_SIZE];
 
-    DistanceSensor()
+    LightSensor()
     {
       std::fill(values, values + SENSOR_SIZE, 0.0f);
     }
 
 };
 
-#endif /* DISTANCESENSOR_H_ */
+#endif /* LIGHTSENSOR_H_ */

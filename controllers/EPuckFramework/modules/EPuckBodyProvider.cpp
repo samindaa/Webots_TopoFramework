@@ -10,20 +10,33 @@
 void EPuckBodyProvider::init()
 {
   // Enter here exit cleanup code
-  for (int i = 0; i < DistanceSensor::DISTANCE_SENSOR_SIZE; i++)
+  for (int i = 0; i < DistanceSensor::SENSOR_SIZE; i++)
   {
     std::stringstream ss;
     ss << "ps" << i;
-    distanceSensorNames[i] = ss.str().c_str();
-    distanceSensors[i] = EPuckFramework::getController().getDistanceSensor(distanceSensorNames[i]);
+    distanceSensors[i] = EPuckFramework::getController().getDistanceSensor(ss.str().c_str());
     distanceSensors[i]->enable(EPuckFramework::getController().getBasicTimeStep());
+  }
+
+  for (int i = 0; i < LightSensor::SENSOR_SIZE; i++)
+  {
+    std::stringstream ss;
+    ss << "ls" << i;
+    lightSensors[i] = EPuckFramework::getController().getLightSensor(ss.str().c_str());
+    lightSensors[i]->enable(EPuckFramework::getController().getBasicTimeStep());
   }
 }
 
 void EPuckBodyProvider::update(DistanceSensor& theDistanceSensor)
 {
-  for (int i = 0; i < DistanceSensor::DISTANCE_SENSOR_SIZE; i++)
-    theDistanceSensor.distanceSensorValues[i] = distanceSensors[i]->getValue();
+  for (int i = 0; i < DistanceSensor::SENSOR_SIZE; i++)
+    theDistanceSensor.values[i] = distanceSensors[i]->getValue();
+}
+
+void EPuckBodyProvider::update(LightSensor& theLightSensor)
+{
+  for (int i = 0; i < LightSensor::SENSOR_SIZE; i++)
+    theLightSensor.values[i] = distanceSensors[i]->getValue();
 }
 
 MAKE_MODULE(EPuckBodyProvider)
