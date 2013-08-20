@@ -1,0 +1,106 @@
+#VRML_SIM V6.0 utf8
+WorldInfo {
+  info [
+    "Description"
+    "Author: first name last name <e-mail>"
+    "Date: DD MMM YYYY"
+  ]
+}
+Viewpoint {
+  orientation -0.0139036 -0.813233 -0.581772 3.18764
+  position -0.0346078 1.86928 -0.69835
+}
+Background {
+  skyColor [
+    0.4 0.7 1
+  ]
+}
+PointLight {
+  location 0 0.345 0
+}
+DEF FLOOR CheckeredFloor {
+}
+DEF OBS_ONE Solid {
+  translation -0.0311053 2.22045e-16 0.164397
+  children [
+    DEF BOX_SHAPE Transform {
+      translation 0 0.025 0
+      children [
+        Shape {
+          geometry Box {
+            size 0.3 0.05 0.025
+          }
+        }
+      ]
+    }
+  ]
+  boundingObject USE BOX_SHAPE
+}
+DEF BOX_OBS_TWO Solid {
+  translation 0.353335 2.22045e-16 -0.148414
+  rotation 0 1 0 0.7854
+  children [
+    USE BOX_SHAPE
+  ]
+  boundingObject USE BOX_SHAPE
+}
+EPuck {
+  controller "EPuckFramework"
+  camera_windowPosition 0.537037 0.732614
+  camera_pixelSize 0
+}
+DEF BALL Solid {
+  translation 0 0.1 -0.2
+  children [
+    Shape {
+      appearance Appearance {
+        texture ImageTexture {
+          url [
+            "textures/chessboard.png"
+          ]
+        }
+      }
+      geometry DEF BALL_GEOMETRY Sphere {
+        radius 0.03
+        subdivision 2
+      }
+    }
+  ]
+  boundingObject USE BALL_GEOMETRY
+  physics Physics {
+  }
+}
+DEF WALL_ONE Solid {
+  translation 0 0.025 -0.5
+  children [
+    DEF WALL_SHAPE Shape {
+      geometry Box {
+        size 1 0.05 0.02
+      }
+    }
+  ]
+  boundingObject USE WALL_SHAPE
+}
+DEF WALL_TWO Solid {
+  translation 0 0.025 0.5
+  children [
+    USE WALL_SHAPE
+  ]
+  boundingObject USE WALL_SHAPE
+}
+DEF WALL_THREE Solid {
+  translation 0.51 0.025 0
+  rotation 0 1 0 1.5708
+  children [
+    USE WALL_SHAPE
+  ]
+  boundingObject USE WALL_SHAPE
+}
+DEF WALL_FOUR Solid {
+  translation -0.51 0.025 0
+  rotation 0 1 0 1.5708
+  children [
+    USE WALL_SHAPE
+  ]
+  boundingObject USE WALL_SHAPE
+}
