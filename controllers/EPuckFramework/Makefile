@@ -53,9 +53,13 @@
 ###-----------------------------------------------------------------------------
 CXX_SOURCES  = EPuckFramework.cpp
 CXX_SOURCES += math/Matrix.cpp math/MVTools.cpp
-CXX_SOURCES += modules/EPuckBodyProvider.cpp modules/EPuckBodySend.cpp modules/ProjectModule.cpp
 CXX_SOURCES += kernel/Communication.cpp kernel/Config.cpp kernel/Drawing.cpp kernel/Framework.cpp kernel/Log.cpp kernel/Timer.cpp
 CXX_SOURCES += utils/net/Addr.cpp utils/net/Exception.cpp utils/net/Handler.cpp utils/net/Socket.cpp utils/net/TCPSocket.cpp utils/net/UDPSocket.cpp 
+
+### -- Module list
+CXX_SOURCES += modules/AccEvaluator.cpp modules/AvoidObstacles.cpp modules/DifferentialDrive.cpp
+CXX_SOURCES += modules/EPuckBodyProvider.cpp modules/EPuckBodySend.cpp modules/GoToAngle.cpp 
+
 
 ### Do not modify: this includes Webots global Makefile.include
 space :=
