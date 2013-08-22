@@ -23,16 +23,17 @@ class Specifications: public SpecificationsBase
     double encoderResolution;
     double wheelRadius;
     double wheelBaseLength;
-    double timeStep;
+    double simulationStep;
     double maxSpeed;
     double speedUnit;
+    double maxDistanceSensorResolution;
     bool initialized;
 
     Pose3D distanceSensorPoses[SENSOR_SIZE];
 
     Specifications() :
-        encoderResolution(0), wheelRadius(0), wheelBaseLength(0), timeStep(0), maxSpeed(0), speedUnit(
-            0), initialized(false)
+        encoderResolution(0), wheelRadius(0), wheelBaseLength(0), simulationStep(0), maxSpeed(0), speedUnit(
+            0), maxDistanceSensorResolution(0), initialized(false)
     {
     }
 };

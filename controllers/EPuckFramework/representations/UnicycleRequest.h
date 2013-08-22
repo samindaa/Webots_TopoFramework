@@ -22,18 +22,19 @@ class UnicycleRequest
     }
 };
 
-REPRESENTATION(GoToAngleUnicycleRequest)
-class GoToAngleUnicycleRequest: public GoToAngleUnicycleRequestBase, public UnicycleRequest
+REPRESENTATION(GenericUnicycleRequestOutput)
+class GenericUnicycleRequestOutput: public GenericUnicycleRequestOutputBase, public UnicycleRequest
 {
 };
 
-REPRESENTATION(GoToGoalUnicycleRequest)
-class GoToGoalUnicycleRequest: public GoToGoalUnicycleRequestBase, public UnicycleRequest
+REPRESENTATION(GoToGoalUnicycleRequestOutput)
+class GoToGoalUnicycleRequestOutput: public GoToGoalUnicycleRequestOutputBase,
+    public UnicycleRequest
 {
 };
 
-REPRESENTATION(AvoidObstaclesUnicycleRequest)
-class AvoidObstaclesUnicycleRequest: public AvoidObstaclesUnicycleRequestBase,
+REPRESENTATION(AvoidObstaclesUnicycleRequestOutput)
+class AvoidObstaclesUnicycleRequestOutput: public AvoidObstaclesUnicycleRequestOutputBase,
     public UnicycleRequest
 {
 };

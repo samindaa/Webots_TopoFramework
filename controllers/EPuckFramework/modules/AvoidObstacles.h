@@ -17,13 +17,13 @@
 MODULE(AvoidObstacles)
   REQUIRES(Specifications)
   REQUIRES(Odometry)
-  REQUIRES(SensorData)
-  PROVIDES(AvoidObstaclesUnicycleRequest)
+  REQUIRES(CalibratedSensorData)
+  PROVIDES(AvoidObstaclesUnicycleRequestOutput)
 END_MODULE
 class AvoidObstacles: public AvoidObstaclesBase
 {
   public:
-    void update(AvoidObstaclesUnicycleRequest& theUnicycleRequest);
+    void update(AvoidObstaclesUnicycleRequestOutput& theAvoidObstaclesUnicycleRequestOutput);
 };
 
 #endif /* AVOIDOBSTACLES_H_ */

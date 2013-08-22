@@ -11,12 +11,14 @@
 #include "kernel/Template.h"
 #include "representations/Specifications.h"
 #include "representations/Odometry.h"
+#include "representations/BehaviorOutput.h"
 #include "representations/UnicycleRequest.h"
 
 MODULE(GoToGoal)
   REQUIRES(Specifications)
   REQUIRES(Odometry)
-  PROVIDES(GoToGoalUnicycleRequest)
+  REQUIRES(BehaviorOutput)
+  PROVIDES(GoToGoalUnicycleRequestOutput)
 END_MODULE
 class GoToGoal: public GoToGoalBase
 {
@@ -25,7 +27,7 @@ class GoToGoal: public GoToGoalBase
     double E_k, e_k_1;
   public:
     void init();
-    void update(GoToGoalUnicycleRequest& theUnicycleRequest);
+    void update(GoToGoalUnicycleRequestOutput& theGoToGoalUnicycleRequestOutput);
 };
 
 

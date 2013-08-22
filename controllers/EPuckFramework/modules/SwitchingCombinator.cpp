@@ -9,20 +9,30 @@
 
 void SwitchingCombinator::update(UnicycleRequestOutput& theUnicycleRequestOutput)
 {
-  if (theGoToGoalUnicycleRequest->active)
+  if (theGenericUnicycleRequestOutput->active)
   {
-    theUnicycleRequestOutput.w = theGoToGoalUnicycleRequest->w;
-    theUnicycleRequestOutput.v = theGoToGoalUnicycleRequest->v;
-  }
-  else if (theAvoidObstaclesUnicycleRequest->active)
-  {
-    theUnicycleRequestOutput.w = theAvoidObstaclesUnicycleRequest->w;
-    theUnicycleRequestOutput.v = theAvoidObstaclesUnicycleRequest->v;
+    theUnicycleRequestOutput.w = theGenericUnicycleRequestOutput->w;
+    theUnicycleRequestOutput.v = theGenericUnicycleRequestOutput->v;
   }
   else
   {
-    theUnicycleRequestOutput.w = 0.0f;
-    theUnicycleRequestOutput.v = 0.0f;
+    if (theGoToGoalUnicycleRequestOutput->active)
+    {
+      theUnicycleRequestOutput.w = theGoToGoalUnicycleRequestOutput->w;
+      theUnicycleRequestOutput.v = theGoToGoalUnicycleRequestOutput->v;
+    }
+
+    if (theAvoidObstaclesUnicycleRequestOutput->active)
+    {
+      theUnicycleRequestOutput.w = theAvoidObstaclesUnicycleRequestOutput->w;
+      theUnicycleRequestOutput.v = theAvoidObstaclesUnicycleRequestOutput->v;
+    }
+
+    if (!(theGoToGoalUnicycleRequestOutput->active || theAvoidObstaclesUnicycleRequestOutput->active))
+    {
+      theUnicycleRequestOutput.w = 0.0f;
+      theUnicycleRequestOutput.v = 0.0f;
+    }
   }
 }
 

@@ -27,6 +27,7 @@ class EPuckBodyProvider: public EPuckBodyProviderBase
     webots::LightSensor* lightSensors[Specifications::SENSOR_SIZE];
     webots::Accelerometer* acc;
     EPuckController& conn;
+    int simulationStep;
   public:
     EPuckBodyProvider();
     void init();

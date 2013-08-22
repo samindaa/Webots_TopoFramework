@@ -13,8 +13,9 @@
 #include "representations/WheelSpeedRequest.h"
 
 MODULE(SwitchingCombinator)
-  REQUIRES(GoToGoalUnicycleRequest)
-  REQUIRES(AvoidObstaclesUnicycleRequest)
+  REQUIRES(GenericUnicycleRequestOutput)
+  REQUIRES(GoToGoalUnicycleRequestOutput)
+  REQUIRES(AvoidObstaclesUnicycleRequestOutput)
   PROVIDES(UnicycleRequestOutput)
 END_MODULE
 class SwitchingCombinator: public SwitchingCombinatorBase

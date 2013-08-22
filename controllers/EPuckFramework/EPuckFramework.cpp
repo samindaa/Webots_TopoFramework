@@ -26,7 +26,7 @@ void EPuckController::run()
 
   graph.graphOutputAllocate();
   // Main loop:
-  while (step(getBasicTimeStep()) != -1)
+  while (step(getBasicTimeStep()) != -1) // 32 ms
   {
     // Timing stuff
     graph.graphOutputUpdate();

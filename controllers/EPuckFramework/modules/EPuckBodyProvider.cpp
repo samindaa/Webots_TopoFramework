@@ -8,19 +8,21 @@
 #include "EPuckBodyProvider.h"
 
 EPuckBodyProvider::EPuckBodyProvider() :
-    acc(0), conn(EPuckFramework::getController())
+    acc(0), conn(EPuckFramework::getController()), simulationStep(0)
 {
 }
 
 void EPuckBodyProvider::init()
 {
+  // Simulation time
+  simulationStep = conn.getBasicTimeStep();
   // Enter here exit cleanup code
   for (int i = 0; i < Specifications::SENSOR_SIZE; i++)
   {
     std::stringstream ss;
     ss << "ps" << i;
     distanceSensors[i] = conn.getDistanceSensor(ss.str().c_str());
-    distanceSensors[i]->enable(conn.getBasicTimeStep());
+    distanceSensors[i]->enable(simulationStep);
   }
 
   for (int i = 0; i < Specifications::SENSOR_SIZE; i++)
@@ -28,12 +30,12 @@ void EPuckBodyProvider::init()
     std::stringstream ss;
     ss << "ls" << i;
     lightSensors[i] = conn.getLightSensor(ss.str().c_str());
-    lightSensors[i]->enable(conn.getBasicTimeStep());
+    lightSensors[i]->enable(simulationStep);
   }
 
   acc = conn.getAccelerometer("accelerometer");
-  acc->enable(conn.getBasicTimeStep());
-  conn.enableEncoders(conn.getBasicTimeStep());
+  acc->enable(simulationStep);
+  conn.enableEncoders(simulationStep);
 }
 
 void EPuckBodyProvider::update(SensorData& theSensorData)
@@ -52,12 +54,6 @@ void EPuckBodyProvider::update(SensorData& theSensorData)
   theSensorData.leftSpeed = conn.getLeftSpeed();
   theSensorData.rightSpeed = conn.getRightSpeed();
 
-  // We use the standard (x,y,z) right-hand coordinate system
-  // where x-axis is front, y-axis is left, and z-axis is up
-  //theSensorData.acc = RotationMatrix().rotateZ(M_PI_2) * theSensorData.acc;
-
-  //std::cout << theSensorData.acc.x << " " << theSensorData.acc.y << " " << theSensorData.acc.z
-  //    << std::endl;
 }
 
 void EPuckBodyProvider::update(Specifications& theSpecifications)
@@ -70,7 +66,8 @@ void EPuckBodyProvider::update(Specifications& theSpecifications)
     theSpecifications.wheelBaseLength = 52.0f / 1000.0f;
     theSpecifications.maxSpeed = 1000.0f;
     theSpecifications.speedUnit = 0.00628; // rad/s
-    theSpecifications.timeStep = conn.getBasicTimeStep() / 1000.0f; // s
+    theSpecifications.simulationStep = simulationStep / 1000.0f; // s (e.g., 32 ms)
+    theSpecifications.maxDistanceSensorResolution = 4096.0f;
 
     // poses
     theSpecifications.distanceSensorPoses[0].rotateZ(-M_PI_2).translate(0.010,  0.033,  -0.030).rotateZ(1.27);

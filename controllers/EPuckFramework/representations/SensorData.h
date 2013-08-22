@@ -30,9 +30,21 @@ class SensorData: public SensorDataBase
         leftEncoder(0), rightEncoder(0), leftSpeed(0), rightSpeed(0)
     {
       std::fill(lightValues, lightValues + Specifications::SENSOR_SIZE, 0.0f);
-      std::fill(lightValues, lightValues + Specifications::SENSOR_SIZE, 0.0f);
+      std::fill(distanceValues, distanceValues + Specifications::SENSOR_SIZE, 0.0f);
     }
 
+};
+
+REPRESENTATION(CalibratedSensorData)
+class CalibratedSensorData: public CalibratedSensorDataBase
+{
+  public:
+    double distanceValues[Specifications::SENSOR_SIZE];
+
+    CalibratedSensorData()
+    {
+      std::fill(distanceValues, distanceValues + Specifications::SENSOR_SIZE, 0.0f);
+    }
 };
 
 #endif /* SENSORDATA_H_ */
