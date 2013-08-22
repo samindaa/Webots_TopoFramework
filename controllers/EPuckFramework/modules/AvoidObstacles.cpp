@@ -18,7 +18,7 @@ void AvoidObstacles::update(
   double w = 0.0f;
   // Simple avoid obstacle behavior
   // detect obsctacles
-  static const double distT = 0.03f;
+  static const double distT = 0.035f;
 
   bool leftObstacle = theCalibratedSensorData->distanceValues[0] < distT
       || theCalibratedSensorData->distanceValues[1] < distT
@@ -31,13 +31,13 @@ void AvoidObstacles::update(
   {
     // turn right
     //thetaDot += Vector2<>(-constantThetaDot, constantThetaDot);
-    w += 100.0f;
+    w += 200.0f;
   }
   else if (rightObstacle)
   {
     // turn left
     //thetaDot += Vector2<>(constantThetaDot, -constantThetaDot);
-    w -= 100.0f;
+    w -= 200.0f;
   }
 
   theAvoidObstaclesUnicycleRequestOutput.w = w;

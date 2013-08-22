@@ -9,8 +9,8 @@
 void Supervisor::update(BehaviorOutput& theBehaviorOutput)
 {
   // This is a simple supervisor behavior
-  theBehaviorOutput.target.translation = Vector2<>(-0.4, 0);
-  //theBehaviorOutput.target.translation = Vector2<>(0, 0);
+  //theBehaviorOutput.target.translation = Vector2<>(-0.4, 0);
+  theBehaviorOutput.target.translation = Vector2<>(0.4, 0);
 }
 
 

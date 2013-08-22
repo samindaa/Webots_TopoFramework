@@ -70,14 +70,22 @@ void EPuckBodyProvider::update(Specifications& theSpecifications)
     theSpecifications.maxDistanceSensorResolution = 4096.0f;
 
     // poses
-    theSpecifications.distanceSensorPoses[0].rotateZ(-M_PI_2).translate(0.010,  0.033,  -0.030).rotateZ(1.27);
-    theSpecifications.distanceSensorPoses[1].rotateZ(-M_PI_2).translate(0.025,  0.033,  -0.022).rotateZ(0.77);
-    theSpecifications.distanceSensorPoses[2].rotateZ(-M_PI_2).translate(0.031,  0.033,  0.00).rotateZ(0.00);
-    theSpecifications.distanceSensorPoses[3].rotateZ(-M_PI_2).translate(0.015,  0.033,  0.030).rotateZ(5.21);
-    theSpecifications.distanceSensorPoses[4].rotateZ(-M_PI_2).translate(-0.015, 0.033,  0.030).rotateZ(4.21);
-    theSpecifications.distanceSensorPoses[5].rotateZ(-M_PI_2).translate(-0.031, 0.033,  0.00).rotateZ(3.14159);
-    theSpecifications.distanceSensorPoses[6].rotateZ(-M_PI_2).translate(-0.025, 0.033,  -0.022).rotateZ(2.37);
-    theSpecifications.distanceSensorPoses[7].rotateZ(-M_PI_2).translate(0.010,  0.033,  -0.030).rotateZ(1.87);
+    theSpecifications.distanceSensorPoses[0].rotateZ(-M_PI_2).translate(0.010, 0.033, -0.030).rotateZ(
+        1.27);
+    theSpecifications.distanceSensorPoses[1].rotateZ(-M_PI_2).translate(0.025, 0.033, -0.022).rotateZ(
+        0.77);
+    theSpecifications.distanceSensorPoses[2].rotateZ(-M_PI_2).translate(0.031, 0.033, 0.00).rotateZ(
+        0.00);
+    theSpecifications.distanceSensorPoses[3].rotateZ(-M_PI_2).translate(0.015, 0.033, 0.030).rotateZ(
+        5.21);
+    theSpecifications.distanceSensorPoses[4].rotateZ(-M_PI_2).translate(-0.015, 0.033, 0.030).rotateZ(
+        4.21);
+    theSpecifications.distanceSensorPoses[5].rotateZ(-M_PI_2).translate(-0.031, 0.033, 0.00).rotateZ(
+        3.14159);
+    theSpecifications.distanceSensorPoses[6].rotateZ(-M_PI_2).translate(-0.025, 0.033, -0.022).rotateZ(
+        2.37);
+    theSpecifications.distanceSensorPoses[7].rotateZ(-M_PI_2).translate(0.010, 0.033, -0.030).rotateZ(
+        1.87);
   }
 }
 

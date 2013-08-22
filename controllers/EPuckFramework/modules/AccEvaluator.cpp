@@ -28,8 +28,10 @@ void AccEvaluator::update(Odometry& theOdometry)
 
   static double prevRightTicks = 0.0f;
   static double prevLeftTicks = 0.0f;
-  static double metersPerTicks = 2.0 * M_PI * theSpecifications->wheelRadius
-      / theSpecifications->maxSpeed;
+  //static double metersPerTicks = 2.0 * M_PI * theSpecifications->wheelRadius
+  //    / theSpecifications->maxSpeed;
+  static double metersPerTicks = theSpecifications->wheelRadius
+      / theSpecifications->encoderResolution;
 
   double rightTicks = theSensorData->rightEncoder;
   double leftTicks = theSensorData->leftEncoder;

@@ -31,6 +31,8 @@ class SensorCalibration : public SensorCalibrationBase
     std::ofstream dataOfstream;
     bool sensorCalibrationActive;
     std::vector<double> coef;
+    double stddev;
+    double mean;
   public:
     SensorCalibration();
     ~SensorCalibration();

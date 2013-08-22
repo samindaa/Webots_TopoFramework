@@ -8,7 +8,7 @@
 #include "SensorCalibration.h"
 
 SensorCalibration::SensorCalibration() :
-    sensorCalibrationActive(false)
+    sensorCalibrationActive(false), stddev(0), mean(0)
 {
 }
 
@@ -33,8 +33,11 @@ void SensorCalibration::init()
   else
   {
     // After doing a regression: the coefficients are from 7 degree poly:
+    mean = 368.1375;
+    stddev = 552.4087;
     double pCoff[8] =
-    { -74.7014, 210.1407, -241.5659, 146.2176, -50.0312, 9.6612, -1.0094, 0.0722 };
+    { -0.000027347411026, 0.000584060458849, -0.004594040224285, 0.017425061555212,
+        -0.033996936781986, 0.033624431690156, -0.019658687417516, 0.033776620646035 };
     coef.resize(8);
     for (int i = 0; i < 8; i++)
       coef[coef.size() - 1 - i] = pCoff[i]; // Reverse for easy computation
@@ -63,8 +66,9 @@ void SensorCalibration::update(GenericUnicycleRequestOutput& theGenericUnicycleR
     if (dataOfstream.is_open())
     {
       const Pose2D diff = (objectPose - theOdometry->pose);
-      dataOfstream << theSensorData->distanceValues[0] << " "
-          << (diff.translation.abs() - theSpecifications->wheelRadius) << std::endl; // Apprx
+      const double sensorReading = diff.translation.abs() / std::cos(0.3)
+          - theSpecifications->wheelRadius;
+      dataOfstream << theSensorData->distanceValues[0] << " " << sensorReading << std::endl; // Apprx
       dataOfstream.flush();
     }
     else
@@ -84,8 +88,8 @@ void SensorCalibration::update(CalibratedSensorData& theCalibratedSensorData)
   {
     for (int i = 0; i < Specifications::SENSOR_SIZE; i++)
     {
+      double x = (theSensorData->distanceValues[i] - mean) / stddev;
       double value = coef[0];
-      double x = theSensorData->distanceValues[i] / theSpecifications->maxDistanceSensorResolution;
       for (unsigned int j = 1; j < coef.size(); j++)
       {
         value += coef[j] * std::pow(x, j);
