@@ -16,19 +16,28 @@ void SwitchingCombinator::update(UnicycleRequestOutput& theUnicycleRequestOutput
   }
   else
   {
+
     if (theGoToGoalUnicycleRequestOutput->active)
     {
       theUnicycleRequestOutput.w = theGoToGoalUnicycleRequestOutput->w;
       theUnicycleRequestOutput.v = theGoToGoalUnicycleRequestOutput->v;
     }
 
+    // In switching logic highest priority is to avoid obstacle
     if (theAvoidObstaclesUnicycleRequestOutput->active)
     {
       theUnicycleRequestOutput.w = theAvoidObstaclesUnicycleRequestOutput->w;
       theUnicycleRequestOutput.v = theAvoidObstaclesUnicycleRequestOutput->v;
     }
 
-    if (!(theGoToGoalUnicycleRequestOutput->active || theAvoidObstaclesUnicycleRequestOutput->active))
+    if (theStopUnicycleRequestOutput->active)
+    {
+      theUnicycleRequestOutput.w = theStopUnicycleRequestOutput->w;
+      theUnicycleRequestOutput.v = theStopUnicycleRequestOutput->v;
+    }
+
+    if (!(theGoToGoalUnicycleRequestOutput->active || theAvoidObstaclesUnicycleRequestOutput->active
+        || theStopUnicycleRequestOutput->active))
     {
       theUnicycleRequestOutput.w = 0.0f;
       theUnicycleRequestOutput.v = 0.0f;

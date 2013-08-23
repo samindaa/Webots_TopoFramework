@@ -40,6 +40,7 @@ class CalibratedSensorData: public CalibratedSensorDataBase
 {
   public:
     double distanceValues[Specifications::SENSOR_SIZE];
+    Vector2<> distanceVectors[Specifications::SENSOR_SIZE];
 
     CalibratedSensorData()
     {

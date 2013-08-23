@@ -8,43 +8,60 @@
 #include "AvoidObstacles.h"
 #include "math/Vector2.h"
 
+void AvoidObstacles::init()
+{
+  kp = 50.0f;
+  ki = 0.0f;
+  kd = 10.0f;
+  E_k = 0.0f;
+  e_k_1 = 0.0f;
+
+}
+
 void AvoidObstacles::update(
     AvoidObstaclesUnicycleRequestOutput& theAvoidObstaclesUnicycleRequestOutput)
 {
 
-  const static double constantThetaDot(config.getValue("constantThetaDot", 300.0f));
-  Vector2<> thetaDot(constantThetaDot, constantThetaDot); // (left, right)
-
-  double w = 0.0f;
-  // Simple avoid obstacle behavior
-  // detect obsctacles
   static const double distT = 0.035f;
-
-  bool leftObstacle = theCalibratedSensorData->distanceValues[0] < distT
+  static double sensorGains[Specifications::SENSOR_SIZE] =
+  { 0, 0.1, 0.8, 1, 1, 0.8, 0.1, 0 };
+  theAvoidObstaclesUnicycleRequestOutput.w = theAvoidObstaclesUnicycleRequestOutput.v = 0.0f;
+  theAvoidObstaclesUnicycleRequestOutput.active = theCalibratedSensorData->distanceValues[0] < distT
       || theCalibratedSensorData->distanceValues[1] < distT
-      || theCalibratedSensorData->distanceValues[2] < distT;
-  bool rightObstacle = theCalibratedSensorData->distanceValues[5] < distT
-      || theCalibratedSensorData->distanceValues[6] < distT
-      || theCalibratedSensorData->distanceValues[7] < distT;
-  theAvoidObstaclesUnicycleRequestOutput.active = leftObstacle || rightObstacle;
-  if (leftObstacle)
-  {
-    // turn right
-    //thetaDot += Vector2<>(-constantThetaDot, constantThetaDot);
-    w += 200.0f;
-  }
-  else if (rightObstacle)
-  {
-    // turn left
-    //thetaDot += Vector2<>(constantThetaDot, -constantThetaDot);
-    w -= 200.0f;
-  }
+      || theCalibratedSensorData->distanceValues[7] < distT
+      || theCalibratedSensorData->distanceValues[6] < distT;
 
-  theAvoidObstaclesUnicycleRequestOutput.w = w;
-  theAvoidObstaclesUnicycleRequestOutput.v = 15.0f
-      / (log(abs(theAvoidObstaclesUnicycleRequestOutput.w) + 5.0f) + 1.0f);
+  if (!theAvoidObstaclesUnicycleRequestOutput.active)
+  {
+    std::cout << "AvoidObstacles=" << theAvoidObstaclesUnicycleRequestOutput.active << std::endl;
+    return;
+  }
+  obstacleAvoidanceVector = Vector2<>(0, 0);
+  // Lets get the resultant vectors
+  for (int i = 0; i < Specifications::SENSOR_SIZE; i++)
+    obstacleAvoidanceVector += (theCalibratedSensorData->distanceVectors[i] * sensorGains[i]);
 
-  std::cout << "AvoidObstacles=" << theAvoidObstaclesUnicycleRequestOutput.active << std::endl;
+  // Heading error
+  double e_k = obstacleAvoidanceVector.angle() - theRobotPose->pose.rotation;
+  e_k = normalize(e_k);
+
+  double e_p = e_k;
+  double e_i = E_k + e_k * theSpecifications->simulationStep;
+  double e_d = (e_k - e_k_1) / theSpecifications->simulationStep;
+
+  // PID heading
+  theAvoidObstaclesUnicycleRequestOutput.w = kp * e_p + ki * e_i + kd * e_d;
+  theAvoidObstaclesUnicycleRequestOutput.v = 6.28
+      / (std::log(abs(theAvoidObstaclesUnicycleRequestOutput.w) + 2.0f) + 1.0f);
+
+  E_k = e_i;
+  e_k_1 = e_k;
+
+  std::cout << "AvoidObstacles=" << theAvoidObstaclesUnicycleRequestOutput.active << " | "
+      << theAvoidObstaclesUnicycleRequestOutput.v << " " << theAvoidObstaclesUnicycleRequestOutput.w
+      << " | " << e_k << " || " << (obstacleAvoidanceVector.angle() * 180.0 / M_PI) << " # "
+      << obstacleAvoidanceVector.x << " " << obstacleAvoidanceVector.y << std::endl;
+
 }
 
 MAKE_MODULE(AvoidObstacles)

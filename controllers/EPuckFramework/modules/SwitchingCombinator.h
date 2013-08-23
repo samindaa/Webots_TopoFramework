@@ -11,11 +11,14 @@
 #include "kernel/Template.h"
 #include "representations/UnicycleRequest.h"
 #include "representations/WheelSpeedRequest.h"
+#include "representations/BehaviorOutput.h"
 
 MODULE(SwitchingCombinator)
   REQUIRES(GenericUnicycleRequestOutput)
   REQUIRES(GoToGoalUnicycleRequestOutput)
   REQUIRES(AvoidObstaclesUnicycleRequestOutput)
+  REQUIRES(StopUnicycleRequestOutput)
+  REQUIRES(BehaviorOutput)
   PROVIDES(UnicycleRequestOutput)
 END_MODULE
 class SwitchingCombinator: public SwitchingCombinatorBase

@@ -22,6 +22,7 @@ class Specifications: public SpecificationsBase
 
     double encoderResolution;
     double wheelRadius;
+    double robotRadius;
     double wheelBaseLength;
     double simulationStep;
     double maxSpeed;
@@ -32,8 +33,8 @@ class Specifications: public SpecificationsBase
     Pose3D distanceSensorPoses[SENSOR_SIZE];
 
     Specifications() :
-        encoderResolution(0), wheelRadius(0), wheelBaseLength(0), simulationStep(0), maxSpeed(0), speedUnit(
-            0), maxDistanceSensorResolution(0), initialized(false)
+        encoderResolution(0), wheelRadius(0), robotRadius(0), wheelBaseLength(0), simulationStep(0), maxSpeed(
+            0), speedUnit(0), maxDistanceSensorResolution(0), initialized(false)
     {
     }
 };

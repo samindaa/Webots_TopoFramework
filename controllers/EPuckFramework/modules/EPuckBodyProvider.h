@@ -33,6 +33,9 @@ class EPuckBodyProvider: public EPuckBodyProviderBase
     void init();
     void update(SensorData& theSensorData);
     void update(Specifications& theSpecifications);
+
+  private:
+    void distanceSensorPose(Pose3D& pose, double zAngleDegree, double x);
 };
 
 #endif /* EPUCKBODYPROVIDER_H_ */

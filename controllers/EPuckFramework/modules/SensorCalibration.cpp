@@ -33,11 +33,11 @@ void SensorCalibration::init()
   else
   {
     // After doing a regression: the coefficients are from 7 degree poly:
-    mean = 368.1375;
-    stddev = 552.4087;
+    mean = 369.9575;
+    stddev = 553.8821;
     double pCoff[8] =
-    { -0.000027347411026, 0.000584060458849, -0.004594040224285, 0.017425061555212,
-        -0.033996936781986, 0.033624431690156, -0.019658687417516, 0.033776620646035 };
+    { -0.000059414348363, 0.000982001155266, -0.006397453435698, 0.020910901891793,
+        -0.036147452252582, 0.032641259943792, -0.018760730726124, 0.017248375332329 };
     coef.resize(8);
     for (int i = 0; i < 8; i++)
       coef[coef.size() - 1 - i] = pCoff[i]; // Reverse for easy computation
@@ -46,7 +46,7 @@ void SensorCalibration::init()
 
 void SensorCalibration::update(GenericUnicycleRequestOutput& theGenericUnicycleRequestOutput)
 {
-  // Only for calibrate sensors
+// Only for calibrate sensors
   theGenericUnicycleRequestOutput.active = sensorCalibrationActive;
 
   if (!theGenericUnicycleRequestOutput.active)
@@ -66,9 +66,10 @@ void SensorCalibration::update(GenericUnicycleRequestOutput& theGenericUnicycleR
     if (dataOfstream.is_open())
     {
       const Pose2D diff = (objectPose - theOdometry->pose);
-      const double sensorReading = diff.translation.abs() / std::cos(0.3)
-          - theSpecifications->wheelRadius;
-      dataOfstream << theSensorData->distanceValues[0] << " " << sensorReading << std::endl; // Apprx
+      Vector3<> pT(diff.translation.abs(),
+          -diff.translation.abs() * std::tan(17.0f * M_PI / 180.0f), 0.0);
+      Vector3<> pS = theSpecifications->distanceSensorPoses[0].invert() * pT;
+      dataOfstream << theSensorData->distanceValues[0] << " " << pS.x << " " << pS.y << std::endl; // Apprx
       dataOfstream.flush();
     }
     else
@@ -95,9 +96,15 @@ void SensorCalibration::update(CalibratedSensorData& theCalibratedSensorData)
         value += coef[j] * std::pow(x, j);
       }
       theCalibratedSensorData.distanceValues[i] = value;
-      std::cout << theCalibratedSensorData.distanceValues[i] << " ";
+
+      // Calculate the distance vectors
+      Vector3<> vec = theSpecifications->distanceSensorPoses[i] * Vector3<>(value, 0.0f, 0.0f);
+      theCalibratedSensorData.distanceVectors[i] = Vector2<>(vec.x, vec.y);
+      std::cout << i << " # ";
+      std::cout << theCalibratedSensorData.distanceValues[i] << " | ";
+      std::cout << "[x=" << theCalibratedSensorData.distanceVectors[i].x << " y="
+          << theCalibratedSensorData.distanceVectors[i].y << "] " << std::endl;
     }
-    std::cout << std::endl;
   }
 }
 

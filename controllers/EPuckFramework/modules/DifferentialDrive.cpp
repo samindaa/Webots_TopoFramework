@@ -25,8 +25,8 @@ void DifferentialDrive::update(WheelSpeedRequest& theWheelSpeedRequest)
       std::max(theWheelSpeedRequest.left, -theSpecifications->maxSpeed),
       theSpecifications->maxSpeed);
 
-  //std::cout << theMotionRequest.wheelSpeedRequest.left << " "
-  //    << theMotionRequest.wheelSpeedRequest.right << std::endl;
+  std::cout << "DifferentialDrive=" << theWheelSpeedRequest.right << " "
+      << theWheelSpeedRequest.left << std::endl;
 }
 
 MAKE_MODULE(DifferentialDrive)

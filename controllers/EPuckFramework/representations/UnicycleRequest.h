@@ -39,6 +39,11 @@ class AvoidObstaclesUnicycleRequestOutput: public AvoidObstaclesUnicycleRequestO
 {
 };
 
+REPRESENTATION(StopUnicycleRequestOutput)
+class StopUnicycleRequestOutput: public StopUnicycleRequestOutputBase, public UnicycleRequest
+{
+};
+
 REPRESENTATION(UnicycleRequestOutput)
 class UnicycleRequestOutput: public UnicycleRequestOutputBase, public UnicycleRequest
 {

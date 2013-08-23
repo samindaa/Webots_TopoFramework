@@ -20,17 +20,12 @@ void GoToGoal::init()
 
 void GoToGoal::update(GoToGoalUnicycleRequestOutput& theGoToGoalUnicycleRequestOutput)
 {
-  const Vector2<> diff = theBehaviorOutput->target.translation - theOdometry->pose.translation;
+  const Vector2<> diff = theBehaviorOutput->target.translation - theRobotPose->pose.translation;
   theGoToGoalUnicycleRequestOutput.active = true;
-  if (diff.abs() < 0.01)
-  {
-    E_k = e_k_1 = 0.0f;
-    theGoToGoalUnicycleRequestOutput.w = theGoToGoalUnicycleRequestOutput.v = 0.0f;
-    theGoToGoalUnicycleRequestOutput.active = false;
-    return;
-  }
+  theGoToGoalUnicycleRequestOutput.w = theGoToGoalUnicycleRequestOutput.v = 0.0f;
+
   // Heading error
-  double e_k = diff.angle() - theOdometry->pose.rotation;
+  double e_k = diff.angle() - theRobotPose->pose.rotation;
   e_k = normalize(e_k);
 
   double e_p = e_k;
@@ -45,8 +40,9 @@ void GoToGoal::update(GoToGoalUnicycleRequestOutput& theGoToGoalUnicycleRequestO
   E_k = e_i;
   e_k_1 = e_k;
 
-  std::cout << theGoToGoalUnicycleRequestOutput.v << " " << theGoToGoalUnicycleRequestOutput.w
-      << " | " << e_k << " " << e_d << " " << diff.abs() << std::endl;
+  std::cout << "GoToGoal=" << theGoToGoalUnicycleRequestOutput.v << " "
+      << theGoToGoalUnicycleRequestOutput.w << " | " << e_k << " " << e_d << " " << diff.abs()
+      << std::endl;
 
 }
 

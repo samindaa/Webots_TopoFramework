@@ -10,13 +10,13 @@
 
 #include "kernel/Template.h"
 #include "representations/Specifications.h"
-#include "representations/Odometry.h"
+#include "representations/RobotPose.h"
 #include "representations/BehaviorOutput.h"
 #include "representations/UnicycleRequest.h"
 
 MODULE(GoToGoal)
   REQUIRES(Specifications)
-  REQUIRES(Odometry)
+  REQUIRES(RobotPose)
   REQUIRES(BehaviorOutput)
   PROVIDES(GoToGoalUnicycleRequestOutput)
 END_MODULE
