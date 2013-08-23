@@ -26,6 +26,7 @@ class AvoidObstacles: public AvoidObstaclesBase
     double kp, ki, kd;
     double E_k, e_k_1;
     Vector2<> obstacleAvoidanceVector;
+    double sensorGains[Specifications::SENSOR_SIZE];
   public:
     void init();
     void update(AvoidObstaclesUnicycleRequestOutput& theAvoidObstaclesUnicycleRequestOutput);

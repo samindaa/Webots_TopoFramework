@@ -17,6 +17,8 @@ void DifferentialDrive::update(WheelSpeedRequest& theWheelSpeedRequest)
 
   theWheelSpeedRequest.right = v / R + (w * L) / (2.0f * R);
   theWheelSpeedRequest.left = v / R - (w * L) / (2.0f * R);
+  theWheelSpeedRequest.right *= 1.3f;
+  theWheelSpeedRequest.left *= 1.3f;
 
   theWheelSpeedRequest.right = std::min(
       std::max(theWheelSpeedRequest.right, -theSpecifications->maxSpeed),

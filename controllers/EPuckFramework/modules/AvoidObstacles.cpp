@@ -22,14 +22,34 @@ void AvoidObstacles::update(
     AvoidObstaclesUnicycleRequestOutput& theAvoidObstaclesUnicycleRequestOutput)
 {
 
-  static const double distT = 0.035f;
-  static double sensorGains[Specifications::SENSOR_SIZE] =
-  { 0, 0.1, 0.8, 1, 1, 0.8, 0.1, 0 };
+  static const double distT = 0.03f;
   theAvoidObstaclesUnicycleRequestOutput.w = theAvoidObstaclesUnicycleRequestOutput.v = 0.0f;
-  theAvoidObstaclesUnicycleRequestOutput.active = theCalibratedSensorData->distanceValues[0] < distT
+  theAvoidObstaclesUnicycleRequestOutput.active = false;
+  // Activity check and sensor gains
+  if (theCalibratedSensorData->distanceValues[0] < distT
       || theCalibratedSensorData->distanceValues[1] < distT
       || theCalibratedSensorData->distanceValues[7] < distT
-      || theCalibratedSensorData->distanceValues[6] < distT;
+      || theCalibratedSensorData->distanceValues[6] < distT)
+  {
+    double mySensorGains[Specifications::SENSOR_SIZE] =
+    { 0, 0.1, 0.8, 1, 1, 0.8, 0.1, 0 };
+    theAvoidObstaclesUnicycleRequestOutput.active = true;
+    std::copy(mySensorGains, mySensorGains + Specifications::SENSOR_SIZE, sensorGains);
+  }
+  else if (theCalibratedSensorData->distanceValues[2] < distT)
+  {
+    double mySensorGains[Specifications::SENSOR_SIZE] =
+    { 0, 0.0, 0.0, 0.0, 1, 1, 1, 1 };
+    theAvoidObstaclesUnicycleRequestOutput.active = true;
+    std::copy(mySensorGains, mySensorGains + Specifications::SENSOR_SIZE, sensorGains);
+  }
+  else if (theCalibratedSensorData->distanceValues[5] < distT)
+  {
+    double mySensorGains[Specifications::SENSOR_SIZE] =
+    { 1, 1, 1, 1, 0, 0, 0, 0 };
+    theAvoidObstaclesUnicycleRequestOutput.active = true;
+    std::copy(mySensorGains, mySensorGains + Specifications::SENSOR_SIZE, sensorGains);
+  }
 
   if (!theAvoidObstaclesUnicycleRequestOutput.active)
   {
